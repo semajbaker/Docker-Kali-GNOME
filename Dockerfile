@@ -1,4 +1,4 @@
-FROM kali:custom
+FROM kalilinux/kali-rolling
 
 RUN apt-get update --fix-missing
 RUN DEBIAN_FRONTEND=noninteractive apt install -y kali-desktop-xfce dbus-x11
