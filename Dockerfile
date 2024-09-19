@@ -1,12 +1,12 @@
-FROM kalilinux/kali-rolling
+FROM kali:custom
 
 RUN apt-get update --fix-missing
 RUN DEBIAN_FRONTEND=noninteractive apt install -y kali-desktop-xfce dbus-x11
 
 RUN rm -f /run/reboot-required*
 
-RUN useradd -m user1 -p $(openssl passwd user1)
-RUN usermod -aG sudo user1
+RUN useradd -m james -p $(openssl passwd semaj)
+RUN usermod -aG sudo james
 RUN echo "root:root" | chpasswd
 
 RUN apt install -y xrdp
@@ -38,10 +38,11 @@ RUN apt install -y build-essential flex bison \
     metasploit-framework burpsuite sqlmap hydra \
     libopencv-dev python3-opencv python3-pyqt5 \
     python3-pyqt5.qtwebengine python3-pyqt5.qtsvg \
-    firefox-esr
+    firefox-esr exploitdb
 
-WORKDIR /home/user1/    
-COPY requirements.txt /
+WORKDIR /home/james/    
+
+COPY requirements.txt /home/james/
 RUN apt-get install -y pipx
 RUN pip install -r requirements.txt --break-system-packages
 
